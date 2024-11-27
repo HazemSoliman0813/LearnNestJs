@@ -1,5 +1,6 @@
-import { Controller, Get, Param, HttpCode, Post, Header, Res } from '@nestjs/common';
+import { Controller, Get, Param, HttpCode, Post, Header, Res, Body } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { CreateLinuxDto } from './create-linux.dto';
 
 @Controller('linux')
 export class LinuxController {
@@ -12,8 +13,8 @@ export class LinuxController {
 
   @Post()
   @Header('Cache-Control', 'no-store')
-  create(@Res() res: Response): void {
+  async create(@Res() res: Response, @Body() createlinuxdto:CreateLinuxDto): Promise<void> {
     const message: string =  `This is Post method and its status code is ${res.statusCode}`
-    res.send(message);
+    await res.send(message);
   }
 }
