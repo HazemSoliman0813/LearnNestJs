@@ -1,9 +1,17 @@
 import { Controller, Get, Param, HttpCode, Post, Header, Res, Body } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { CreateLinuxDto } from './create-linux.dto';
+import { CreateLinuxDto } from './dto/create-linux.dto';
+import { LinuxService } from './linux.service';
+import { linux } from './interfaces/linux.interface';
 
 @Controller('linux')
 export class LinuxController {
+  constructor(private linuxService: LinuxService) {}
+
+  @Get()
+  async findAll(): Promise<linux[]> {
+    return this.linuxService.findAll();
+  }
 
   @Get('distro/:name?')
   @HttpCode(208)
@@ -13,8 +21,7 @@ export class LinuxController {
 
   @Post()
   @Header('Cache-Control', 'no-store')
-  async create(@Res() res: Response, @Body() createlinuxdto:CreateLinuxDto): Promise<void> {
-    const message: string =  `This is Post method and its status code is ${res.statusCode}`
-    await res.send(message);
+  async create(@Body() createlinuxdto:CreateLinuxDto): Promise<void> {
+    return this.linuxService.create(createlinuxdto);
   }
 }

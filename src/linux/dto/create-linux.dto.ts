@@ -1,4 +1,4 @@
 export class CreateLinuxDto {
-  name: string;
+  distro: string;
   version: string;
 }
