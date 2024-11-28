@@ -1,5 +1,5 @@
 import { Controller, Get, Param, HttpCode, Post, Header, Res, Body } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { CreateLinuxDto } from './dto/create-linux.dto';
 import { LinuxService } from './linux.service';
 import { linux } from './interfaces/linux.interface';
