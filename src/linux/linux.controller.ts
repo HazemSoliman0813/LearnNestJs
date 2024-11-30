@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { CreateLinuxDto } from './dto/create-linux.dto';
 import { LinuxService } from './linux.service';
 import { linux } from './interfaces/linux.interface';
+import { ParseStringPipe } from './parse-string.pipe';
 
 @Controller('linux')
 export class LinuxController {
@@ -15,7 +16,7 @@ export class LinuxController {
 
   @Get('distro/:name?')
   @HttpCode(208)
-  getDistro(@Param('name') name: string, req: Request): string {
+  getDistro(@Param('name', ParseStringPipe) name: string, req: Request): string {
     return `Linux Distro ${name}`;
   }
 
