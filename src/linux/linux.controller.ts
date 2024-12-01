@@ -1,4 +1,4 @@
-import { Controller, Get, Param, HttpCode, Post, Header, Res, Body } from '@nestjs/common';
+import { Controller, Get, Param, HttpCode, Post, Header, Res, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateLinuxDto } from './dto/create-linux.dto';
 import { LinuxService } from './linux.service';
@@ -22,7 +22,8 @@ export class LinuxController {
 
   @Post()
   @Header('Cache-Control', 'no-store')
-  async create(@Body() createlinuxdto:CreateLinuxDto): Promise<void> {
+  @UsePipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted: true, groups:['create']}))
+  async create(@Body() createlinuxdto:CreateLinuxDto): Promise<linux> {
     return this.linuxService.create(createlinuxdto);
   }
 }

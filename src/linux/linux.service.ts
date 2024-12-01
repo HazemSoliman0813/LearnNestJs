@@ -5,8 +5,9 @@ import { linux } from './interfaces/linux.interface'
 export class LinuxService {
   private readonly distros: linux[] = [];
 
-  create(distro: linux): void {
+  create(distro: linux): linux {
     this.distros.push(distro);
+    return distro
   }
 
   findAll(): linux[] {
