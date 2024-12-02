@@ -1,4 +1,4 @@
 export interface linux {
-  distro: string,
-  version: string
+  name: string,
+  version: number
 }
