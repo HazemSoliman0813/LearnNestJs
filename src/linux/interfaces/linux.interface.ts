@@ -1,4 +1,4 @@
 export interface linux {
-  name: string,
-  version: number
+  name?: string,
+  version?: number
 }
