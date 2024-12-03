@@ -10,11 +10,9 @@ export class zodValidationPipe implements PipeTransform {
   constructor(private zodSchema: ZodSchema) {}
 
   transform(value: any, metadata: ArgumentMetadata) {
-    try {
-      const parsedValue = this.zodSchema.parse(value);
-      return parsedValue;
-    } catch (error) {
-      throw new BadRequestException('Schema parsing failed');
-    }
+
+      const parsedValue = this.zodSchema.safeParse(value);
+      if(parsedValue.success) return parsedValue;
+      throw new BadRequestException(parsedValue.error.format());
   }
 }
